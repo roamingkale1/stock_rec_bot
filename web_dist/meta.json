@@ -1,0 +1,10 @@
+{
+  "quarter": "2025-09-30",
+  "generated_at": "2025-09-20T22:00:04.804540Z",
+  "train_auc": 0.6930601412544126,
+  "n_train": 31587,
+  "n_score": 382,
+  "feature_count": 63,
+  "have_shap": true,
+  "sentiment_source": "headlines_with_sentiment_DistilBERT.csv"
+}
