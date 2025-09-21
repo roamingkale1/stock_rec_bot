@@ -1,0 +1,706 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>S&P 500 Next-Quarter Stock Picks</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root { --text:#111827; --muted:#6b7280; --line:#e5e7eb; --bg:#ffffff; --card:#ffffff; }
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+           margin: 24px; color: var(--text); background: var(--bg); }
+    h1 { margin: 0 0 8px 0; font-weight: 700; }
+    p { margin: 0 0 8px 0; }
+    .muted { color: var(--muted); }
+    .row { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; margin-top: 16px; }
+    .row2, .row3 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 12px; }
+    .card { border: 1px solid var(--line); background: var(--card); border-radius: 12px; padding: 16px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+    th { background: #f9fafb; font-weight: 600; }
+    .list { max-height: 460px; overflow: auto; }
+    .section-title { margin: 0 0 8px 0; font-weight: 700; }
+    .explain { font-size: 14px; color: var(--muted); line-height: 1.5; }
+    .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 18px; margin-top: 8px; }
+    .metric { font-size: 14px; }
+    .metric b { color:#111827; }
+    .controls { display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin: 6px 0 4px; }
+    select { padding: 8px 10px; border:1px solid var(--line); border-radius: 8px; background:#fff; }
+    .small { font-size: 13px; }
+    .table-note { margin: 6px 0 0 0; }
+    .headline { padding: 10px 0; border-bottom: 1px solid var(--line); }
+    .headline a { text-decoration: none; color: #0f766e; }
+    .badge { display:inline-block; padding:2px 8px; border-radius: 999px; font-size:12px; margin-left:8px; border:1px solid var(--line); }
+    .pos { background:#ecfdf5; color:#065f46; }
+    .neg { background:#fef2f2; color:#991b1b; }
+    .neu { background:#f3f4f6; color:#374151; }
+    .headline-date { font-size:12px; color:var(--muted); margin-left:8px; }
+    @media (max-width: 1100px){ .row, .row2, .row3 { grid-template-columns: 1fr; } }
+
+    /* Chatbot styles */
+    .chatbot-btn{
+      position: fixed; right: 18px; bottom: 18px; width: 56px; height: 56px; border-radius: 50%;
+      background:#0f766e; color:#fff; border:none; cursor:pointer; box-shadow:0 10px 20px rgba(0,0,0,.15);
+      display:flex; align-items:center; justify-content:center; font-size:22px;
+    }
+    .chatbot-panel{
+      position: fixed; right: 18px; bottom: 86px; width: 340px; max-width: 92vw; background:#fff;
+      border:1px solid var(--line); border-radius: 12px; box-shadow:0 12px 28px rgba(0,0,0,.18); display:none; flex-direction:column;
+      overflow:hidden;
+    }
+    .chatbot-header{ padding:10px 12px; background:#f9fafb; border-bottom:1px solid var(--line); font-weight:600; display:flex; justify-content:space-between; align-items:center;}
+    .chatbot-close{ background:transparent; border:none; font-size:18px; cursor:pointer; color:#6b7280;}
+    .chatbot-messages{ height: 320px; overflow:auto; padding: 12px; }
+    .chatbot-input{ display:flex; gap:8px; padding: 10px; border-top:1px solid var(--line); }
+    .chatbot-input input{ flex:1; padding:10px 12px; border:1px solid var(--line); border-radius:8px; }
+    .chatbot-input button{ padding:10px 12px; background:#0f766e; color:#fff; border:none; border-radius:8px; cursor:pointer; }
+    .msg{ margin:6px 0; font-size:14px; line-height:1.4; }
+    .msg.user{ text-align:right; }
+    .msg.user .bubble{ display:inline-block; background:#0f766e; color:#fff; padding:8px 10px; border-radius:12px 12px 0 12px; }
+    .msg.bot .bubble{ display:inline-block; background:#f3f4f6; color:#111827; padding:8px 10px; border-radius:12px 12px 12px 0; }
+    .msg a{ color:#0f766e; text-decoration:none; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <h1>S&P 500 Next-Quarter Stock Picks</h1>
+  <p id="intro" class="muted"></p>
+  <p class="small muted"><b>Long (Buy):</b> you profit if the stock beats the market next quarter. <b>Short (Avoid/Short):</b> you benefit if it lags the market.</p>
+
+  <div class="controls">
+    <label>View:
+      <select id="viewSel">
+        <option value="longs">Buy List (Long)</option>
+        <option value="shorts">Avoid / Short List</option>
+      </select>
+    </label>
+  </div>
+
+  <!-- Row 1 -->
+  <div class="row">
+    <div class="card">
+      <h3 class="section-title" id="listTitle">Buy List (Long)</h3>
+      <div class="list">
+        <table id="pickTable"><thead><tr><th>#</th><th>Ticker</th><th>Company</th></tr></thead><tbody></tbody></table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 class="section-title">What drives the pick?</h3>
+      <div class="explain">
+        We use a <b>Gradient Boosting</b> model — a simple machine-learning method that combines many tiny decision trees.
+        It learns patterns that link company signals to whether a stock is likely to beat the market next quarter.
+      </div>
+      <p class="explain" style="margin-top:8px;">
+        <b>Based on our analysis, Trading Dollars / Day, Recent Performance vs Market and Daily Price Swings
+        typically drive predictions and future price movement the most — but this can vary by stock.</b>
+      </p>
+      <div style="margin-top:8px;">
+        <div class="explain"><b>Inputs we look at (plain English):</b></div>
+        <div class="metrics-grid" id="metricsList"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 2 -->
+  <div class="controls">
+    <label>Pick a stock from the current list:
+      <select id="tickerSel"></select>
+    </label>
+  </div>
+
+  <div class="row2">
+    <div class="card">
+      <h3 class="section-title" id="contribTitle">Contribution Weights (%)</h3>
+      <canvas id="barChart" height="260"></canvas>
+      <p class="muted small" id="chartNote" style="margin-top:6px;"></p>
+    </div>
+
+    <div class="card">
+      <h3 class="section-title" id="pvTitle">Price & Volume</h3>
+      <canvas id="priceChart" height="140"></canvas>
+      <canvas id="volChart" height="140" style="margin-top:12px;"></canvas>
+      <p class="muted small" id="pvNote" style="margin-top:6px;">Shows historical daily closing price and trading volume.</p>
+    </div>
+  </div>
+
+  <!-- Row 3 -->
+  <div class="row3">
+    <div class="card">
+      <h3 class="section-title" id="featTitle">Model Inputs — Most Recent vs Prior</h3>
+      <div class="list">
+        <table id="featTable">
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th id="colCur">Most Recent</th>
+              <th id="colPrev">Prior</th>
+              <th>QoQ Change</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p class="muted small table-note" id="featNote">
+        Values show the two most recent quarters available for this stock.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3 class="section-title">Related Headlines</h3>
+      <div class="controls" style="margin-top:4px;">
+        <span class="muted small" id="newsDebug"></span>
+      </div>
+      <div id="newsList" class="list"></div>
+      <p class="muted small" id="newsNote" style="margin-top:6px;">Shows DistilBERT-tagged headlines for the selected ticker, sorted by date (newest first), then by sentiment (negative → positive → neutral) on the same date.</p>
+    </div>
+  </div>
+
+  <!-- Chatbot UI -->
+  <button class="chatbot-btn" id="chatBtn" aria-label="Chat">💬</button>
+  <div class="chatbot-panel" id="chatPanel" role="dialog" aria-modal="true" aria-label="Stock assistant">
+    <div class="chatbot-header">
+      <span>Ask about a stock</span>
+      <button class="chatbot-close" id="chatClose" title="Close">×</button>
+    </div>
+    <div class="chatbot-messages" id="chatMsgs"></div>
+    <div class="chatbot-input">
+      <input id="chatInput" type="text" placeholder="e.g., Do you recommend KO stock?" />
+      <button id="chatSend">Send</button>
+    </div>
+  </div>
+
+<script>
+/* ---------- Friendly metric names ---------- */
+const METRIC_MAP = {
+  PB: { label: "Price-to-Book", desc: "Share price versus the company’s net assets (assets − liabilities)." },
+  PE: { label: "Price-to-Earnings", desc: "Share price versus the company’s annual profits." },
+  BookValue: { label: "Book Value", desc: "Company’s net assets = Assets − Liabilities." },
+  CapEx: { label: "Capital Spending", desc: "Cash invested in long-term assets (equipment, buildings)." },
+  TotalLiabilities: { label: "Debts & Obligations", desc: "What the company owes (loans, payables, etc.)." },
+  RelativeReturn: { label: "Recent Performance vs Market", desc: "How it performed last quarter compared to the market." },
+  ret_vol_q: { label: "Daily Price Swings", desc: "How choppy the stock’s day-to-day moves were in the quarter." },
+  sum_volume: { label: "Shares Traded (Quarter)", desc: "Total number of shares traded in the quarter." },
+  avg_volume: { label: "Average Daily Volume", desc: "Average shares traded per day in the quarter." },
+  vol_vol_q: { label: "Volume Swings", desc: "How much trading activity varied day to day." },
+  dollar_vol_mean: { label: "Trading Dollars / Day", desc: "Average money traded per day (price × shares)." },
+  dollar_vol_sum: { label: "Trading Dollars (Quarter)", desc: "Total money traded over the quarter (price × shares)." },
+  Turnover: { label: "Turnover", desc: "Shares traded ÷ shares outstanding (how often the stock changed hands)." },
+  NewsCount: { label: "Headline Count", desc: "Number of headlines in the quarter." },
+  NewsPosMinusNeg: { label: "Pos − Neg Headlines", desc: "Positive minus Negative headline counts." }
+};
+const METRICS_FOR_VALUES = [
+  "PB","PE","BookValue","CapEx","TotalLiabilities",
+  "RelativeReturn","ret_vol_q",
+  "sum_volume","avg_volume","vol_vol_q",
+  "dollar_vol_mean","dollar_vol_sum","Turnover",
+  "NewsCount","NewsPosMinusNeg"
+];
+
+/* ---------- Small helpers ---------- */
+function parseCSV(text){
+  const rows=[], N=text.length; let row=[], val='', q=false;
+  for (let i=0;i<N;i++){
+    const c=text[i], n=text[i+1];
+    if (c==='\"' && q && n==='\"'){ val+='\"'; i++; continue; }
+    if (c==='\"'){ q=!q; continue; }
+    if (c===',' && !q){ row.push(val); val=''; continue; }
+    if ((c==='\n'||c==='\r') && !q){
+      if (val!==''||row.length){ row.push(val); rows.push(row); row=[]; val=''; }
+      continue;
+    }
+    val+=c;
+  }
+  if (val!==''||row.length){ row.push(val); rows.push(row); }
+  return rows;
+}
+function cleanHeaderCell(h){ return (h||"").replace(/^\uFEFF/,"").trim(); }
+async function tryFetch(path){ try{ const r=await fetch(path,{cache:"no-store"}); if(r.ok) return await r.text(); }catch(e){} return null; }
+function asNum(x){ const n=Number(x); return Number.isFinite(n)? n : NaN; }
+function fmtNum(x){
+  if (!Number.isFinite(x)) return '—';
+  const a=Math.abs(x);
+  if (a>=1e12) return (x/1e12).toFixed(2)+'T';
+  if (a>=1e9)  return (x/1e9).toFixed(2)+'B';
+  if (a>=1e6)  return (x/1e6).toFixed(2)+'M';
+  if (a>=1e3)  return (x/1e3).toFixed(2)+'K';
+  return x.toFixed(2);
+}
+function fmtPct(x){ return Number.isFinite(x)? (x*100).toFixed(1)+'%' : '—'; }
+
+/* Normalize tickers so sources align (BRK-B ↔ BRK.B, RDS/A ↔ RDS.A, spaces) */
+function normTicker(s){
+  if(!s) return '';
+  s = String(s).toUpperCase().trim().replace(/\s+/g,'');
+  s = s.replace(/[-/]/g, '.');
+  return s;
+}
+
+/* ---------- Data holders ---------- */
+let picks=null, meta=null, nameMap={}, ohlcvByTicker=new Map(), predsByTicker=new Map();
+let chartContrib=null, chartPrice=null, chartVol=null;
+let currentSide='longs';
+let sentimentRows=[];  // {ticker,date,title,url,sentiment}
+
+/* ---------- Loaders (paths aligned to your layout) ---------- */
+async function loadCompanyNames(){
+  const txt = await tryFetch('/final_website/data/SP500_2025.csv');
+  if (!txt) return;
+  const rows=parseCSV(txt); if(!rows.length) return;
+  const header=rows[0].map(cleanHeaderCell);
+  const si=header.findIndex(h=>h.toLowerCase()==='symbol');
+  const ni=header.findIndex(h=>h.toLowerCase().startsWith('security'));
+  if (si<0||ni<0) return;
+  for (let i=1;i<rows.length;i++){
+    const cols=rows[i]; if(!cols) continue;
+    const sym=cleanHeaderCell(cols[si]||'').toUpperCase();
+    const sec=cleanHeaderCell(cols[ni]||'');
+    if (sym) nameMap[sym]=sec;
+  }
+}
+async function loadOHLCV(){
+  const txt = await tryFetch('/final_website/data/ohlcv_sp500.csv');
+  if (!txt) return;
+  const rows=parseCSV(txt); if(!rows.length) return;
+  const header=rows[0].map(cleanHeaderCell);
+  const ti=header.findIndex(h=>h.toLowerCase()==='ticker');
+  const di=header.findIndex(h=>h.toLowerCase()==='date');
+  const ci=header.findIndex(h=>h.toLowerCase()==='close');
+  const vi=header.findIndex(h=>h.toLowerCase()==='volume');
+  if (ti<0||di<0||ci<0||vi<0) return;
+  for (let i=1;i<rows.length;i++){
+    const cols=rows[i]; if(!cols) continue;
+    const t=cleanHeaderCell(cols[ti]||'').toUpperCase();
+    const d=cleanHeaderCell(cols[di]||'');
+    const c=asNum(cleanHeaderCell(cols[ci]||''));
+    const v=asNum(cleanHeaderCell(cols[vi]||''));
+    if(!t||!d||!Number.isFinite(c)) continue;
+    if(!ohlcvByTicker.has(t)) ohlcvByTicker.set(t, []);
+    ohlcvByTicker.get(t).push({date:d, close:c, vol:Number.isFinite(v)?v:null});
+  }
+  for (const [t, arr] of ohlcvByTicker.entries()){ arr.sort((a,b)=>a.date.localeCompare(b.date)); }
+}
+async function loadPredictions(){
+  const txt = await tryFetch('predictions_latest.csv');
+  if (!txt) return;
+  const rows=parseCSV(txt); if(!rows.length) return;
+  const header=rows[0].map(cleanHeaderCell);
+  const map=new Map();
+  for (let i=1;i<rows.length;i++){
+    const cols=rows[i]; if(!cols) continue;
+    const obj={ raw:{} };
+    for (let c=0;c<header.length;c++){
+      const key=header[c];
+      const val=cleanHeaderCell(cols[c]||'');
+      const num=Number(val);
+      obj.raw[key] = Number.isFinite(num)? num : val;
+    }
+    const t = normTicker(obj.raw["Ticker"]);
+    if (t) map.set(t, obj);
+  }
+  predsByTicker = map;
+}
+async function loadSentiment(){
+  const txt = await tryFetch('filtered_headlines.csv');
+  if (!txt) return;
+  const rows=parseCSV(txt); if(!rows.length) return;
+  const header=rows[0].map(cleanHeaderCell);
+  const ti=header.findIndex(h=>h.toLowerCase()==='ticker');
+  const di=header.findIndex(h=>h.toLowerCase()==='date');
+  const si=header.findIndex(h=>h.toLowerCase()==='sentiment');
+  const ui=header.findIndex(h=>h.toLowerCase()==='url');
+  const ti2=header.findIndex(h=>h.toLowerCase()==='title');
+  if (ti<0||di<0||si<0) return;
+  const out=[];
+  for (let i=1;i<rows.length;i++){
+    const cols=rows[i]; if(!cols) continue;
+    const ticker=normTicker(cleanHeaderCell(cols[ti]||''));
+    const dateStr=cleanHeaderCell(cols[di]||'');
+    const d=new Date(dateStr);
+    if(!ticker||isNaN(d)) continue;
+    const sentiment=(cleanHeaderCell(cols[si]||'').toLowerCase());
+    const url=(ui>=0)? cleanHeaderCell(rows[i][ui]||'') : '';
+    const title=(ti2>=0)? cleanHeaderCell(rows[i][ti2]||'') : '';
+    out.push({ticker, date:d, title, url, sentiment});
+  }
+  sentimentRows = out;
+  const uniq = new Set(out.map(r=>r.ticker));
+  const note = document.getElementById('newsDebug');
+  if (note) note.textContent = `Loaded ${out.length} headlines across ${uniq.size} tickers.`;
+}
+
+/* ---------- UI builders ---------- */
+const METRICS_FOR_UI = Object.keys(METRIC_MAP).map(k=>({key:k, ...METRIC_MAP[k]}));
+function renderMetricsList(){
+  const container=document.getElementById('metricsList');
+  const items=METRICS_FOR_UI.sort((a,b)=>a.label.localeCompare(b.label));
+  container.innerHTML = items.map(x=> `<div class="metric"><b>${x.label}</b>: ${x.desc}</div>`).join('');
+}
+
+function renderList(){
+  const tb=document.querySelector('#pickTable tbody'); tb.innerHTML='';
+  document.getElementById('listTitle').textContent = (currentSide==='shorts')? 'Avoid / Short List' : 'Buy List (Long)';
+  const rows=(picks[currentSide]||[]);
+  rows.forEach((r,i)=>{
+    const name=nameMap[r.ticker]||'';
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${i+1}</td><td>${r.ticker}</td><td>${name}</td>`;
+    tb.appendChild(tr);
+  });
+}
+function populateTickerDropdown(){
+  const sel=document.getElementById('tickerSel'); sel.innerHTML='';
+  const rows=(picks[currentSide]||[]);
+  rows.forEach(r=>{
+    const norm = normTicker(r.ticker);
+    const o=document.createElement('option');
+    o.value=norm; // normalized value for matching sentiment
+    o.textContent=r.ticker + (nameMap[r.ticker]?` — ${nameMap[r.ticker]}`:'');
+    sel.appendChild(o);
+  });
+  if (rows.length) sel.value=normTicker(rows[0].ticker);
+  sel.onchange=()=>{
+    const t=sel.value;
+    renderContrib(t); renderPriceVolume(t); renderFeatureTable(t); renderHeadlines(t);
+  };
+}
+function findPickByTicker(t){
+  const rows=(picks[currentSide]||[]);
+  return rows.find(x=> normTicker(x.ticker)===t);
+}
+
+/* ---------- Charts ---------- */
+function renderContrib(tickerNorm){
+  const pick=findPickByTicker(tickerNorm);
+  const rawTicker = pick ? pick.ticker : tickerNorm;
+  document.getElementById('contribTitle').textContent =
+    `Contribution Weights (%) — ${rawTicker}${nameMap[rawTicker]?' — '+nameMap[rawTicker]:''}`;
+  const note=document.getElementById('chartNote');
+  if (!pick||!pick.contrib||!pick.contrib.length){
+    if(chartContrib) chartContrib.destroy();
+    note.textContent="No per-stock contribution data available.";
+    return;
+  }
+  const labels=pick.contrib.map(c=> (METRIC_MAP[c.metric]?.label || c.metric));
+  const tips  =pick.contrib.map(c=> (METRIC_MAP[c.metric]?.desc  || ''));
+  const vals  =pick.contrib.map(c=> c.percent);
+  const ctx=document.getElementById('barChart').getContext('2d');
+  if(chartContrib) chartContrib.destroy();
+  chartContrib = new Chart(ctx,{
+    type:'bar',
+    data:{ labels, datasets:[{ label:'Share of influence (%)', data:vals }] },
+    options:{
+      responsive:true,
+      plugins:{ legend:{display:false},
+        tooltip:{ callbacks:{ afterBody:(items)=>{ const i=items[0].dataIndex; return tips[i]; } } }
+      },
+      scales:{ y:{ beginAtZero:true, title:{display:true,text:'Percent of total impact'} } }
+    }
+  });
+  note.textContent="Bars show which signals most influenced this recommendation.";
+}
+function renderPriceVolume(tickerNorm){
+  let arr = ohlcvByTicker.get(tickerNorm) || ohlcvByTicker.get(tickerNorm.replace(/\./g,'-')) || [];
+  if (!arr.length) arr = ohlcvByTicker.get(tickerNorm) || [];
+  const displayTicker = tickerNorm;
+  document.getElementById('pvTitle').textContent =
+    `Price & Volume — ${displayTicker}${nameMap[displayTicker]?' — '+nameMap[displayTicker]:''}`;
+  if (!arr.length){ if(chartPrice) chartPrice.destroy(); if(chartVol) chartVol.destroy(); return; }
+  const maxN=5*252, data=arr.slice(-maxN), labels=data.map(d=>d.date), closes=data.map(d=>d.close), vols=data.map(d=>d.vol||0);
+  const pctx=document.getElementById('priceChart').getContext('2d'); if(chartPrice) chartPrice.destroy();
+  chartPrice = new Chart(pctx,{
+    type:'line',
+    data:{ labels, datasets:[{ label:'Close', data:closes, tension:0.15 }] },
+    options:{ plugins:{legend:{display:false}}, scales:{ x:{display:false}, y:{title:{display:true,text:'Price'}} } }
+  });
+  const vctx=document.getElementById('volChart').getContext('2d'); if(chartVol) chartVol.destroy();
+  chartVol = new Chart(vctx,{
+    type:'bar',
+    data:{ labels, datasets:[{ label:'Volume', data:vols }] },
+    options:{ plugins:{legend:{display:false}}, scales:{ x:{display:false}, y:{title:{display:true,text:'Volume'}} } }
+  });
+}
+
+/* ---------- Feature table ---------- */
+function fmtValue(metric, x){
+  if (!Number.isFinite(x)) return '—';
+  if (metric==='PB' || metric==='PE') return x.toFixed(2);
+  if (metric==='RelativeReturn') return fmtPct(x);
+  if (metric.endsWith('_vol') || metric==='ret_vol_q' || metric==='vol_vol_q') return x.toFixed(4);
+  if (metric==='Turnover') return fmtPct(x);
+  if (metric==='sum_volume' || metric==='avg_volume') return fmtNum(x);
+  if (metric==='dollar_vol_mean' || metric==='dollar_vol_sum') return '$'+fmtNum(x);
+  if (metric==='BookValue' || metric==='CapEx' || metric==='TotalLiabilities') return '$'+fmtNum(x);
+  return fmtNum(x);
+}
+function renderFeatureTable(tickerNorm){
+  const holder=predsByTicker.get(tickerNorm);
+  const tb=document.querySelector('#featTable tbody'); tb.innerHTML='';
+  const title=document.getElementById('featTitle');
+
+  const displayTicker = tickerNorm;
+  if (!holder){
+    title.textContent=`Model Inputs — ${displayTicker}`;
+    document.getElementById('colCur').textContent='Most Recent';
+    document.getElementById('colPrev').textContent='Prior';
+    document.getElementById('featNote').textContent =
+      'No values found for this ticker in predictions_latest.csv.';
+    return;
+  }
+
+  const raw=holder.raw;
+  title.textContent = `Model Inputs — ${displayTicker}${nameMap[displayTicker]?' — '+nameMap[displayTicker]:''}`;
+  document.getElementById('colCur').textContent  = 'Most Recent';
+  document.getElementById('colPrev').textContent = 'Prior';
+  document.getElementById('featNote').textContent =
+    'Values show the two most recent quarters available for this stock.';
+
+  METRICS_FOR_VALUES.forEach(m=>{
+    let cur = asNum(raw[`${m}_cur`]);
+    let prev = asNum(raw[`${m}_prev`]);
+    let qoq = asNum(raw[`${m}_qoq`]);
+
+    if (!Number.isFinite(cur)) cur = asNum(raw[m]);
+    if (!Number.isFinite(qoq)) qoq = asNum(raw[`${m}_pctchg_qoq`]);
+    if (!Number.isFinite(prev) && Number.isFinite(cur) && Number.isFinite(qoq)){
+      prev = (qoq > -1) ? (cur / (1+qoq)) : NaN;
+    }
+
+    const tr=document.createElement('tr');
+    tr.innerHTML = `
+      <td>${(METRIC_MAP[m]?.label)||m}</td>
+      <td>${fmtValue(m, cur)}</td>
+      <td>${fmtValue(m, prev)}</td>
+      <td>${fmtPct(qoq)}</td>
+    `;
+    tb.appendChild(tr);
+  });
+}
+
+/* ---------- Headlines (filtered to selected ticker) ---------- */
+function renderHeadlines(tickerNorm){
+  const newsDiv = document.getElementById('newsList');
+  newsDiv.innerHTML='';
+  if (!tickerNorm || !sentimentRows.length){
+    newsDiv.innerHTML='<p class="muted small">No headlines available.</p>'; 
+    return;
+  }
+  const order = { "negative":0, "positive":1, "neutral":2 };
+  const rows = sentimentRows.filter(r => {
+    const t = r.ticker;
+    return t === tickerNorm ||
+          t.replace(/\./g,'-') === tickerNorm ||
+          t === tickerNorm.replace(/\./g,'-');
+  });
+
+  if (!rows.length){
+    newsDiv.innerHTML = `<p class="muted small">No headlines for <b>${tickerNorm}</b>.</p>`;
+    return;
+  }
+
+  rows.sort((a,b)=>{
+    const db = b.date - a.date;
+    if (db !== 0) return db;
+    return (order[(a.sentiment||'neutral')] ?? 9) - (order[(b.sentiment||'neutral')] ?? 9);
+  });
+
+  for (const r of rows){
+    const s = (r.sentiment||'neutral').toLowerCase();
+    const cls = (s==='positive'?'pos': s==='negative'?'neg':'neu');
+    const dateTxt = r.date.toISOString().slice(0,10);
+    const title = r.title || r.url || '(untitled)';
+    const url = r.url || '#';
+    const item = document.createElement('div');
+    item.className='headline';
+    item.innerHTML = `
+      <a href="${url}" target="_blank" rel="noopener noreferrer">${title}</a>
+      <span class="badge ${cls}">${s}</span>
+      <span class="headline-date">${dateTxt}</span>
+    `;
+    newsDiv.appendChild(item);
+  }
+}
+
+/* ---------- Events & boot ---------- */
+document.getElementById('viewSel').addEventListener('change', ()=>{
+  currentSide = document.getElementById('viewSel').value;
+  renderList(); populateTickerDropdown();
+  const t=document.getElementById('tickerSel').value;
+  if (t){ renderContrib(t); renderPriceVolume(t); renderFeatureTable(t); renderHeadlines(t); }
+});
+
+async function loadAll(){
+  await Promise.all([loadCompanyNames(), loadOHLCV(), loadPredictions(), loadSentiment()]);
+  const [pj, mj] = await Promise.all([
+    fetch('picks_latest.json', {cache:'no-store'}).then(r=>r.json()),
+    fetch('meta.json', {cache:'no-store'}).then(r=>r.json())
+  ]);
+  picks=pj; meta=mj;
+  document.getElementById('intro').textContent =
+    `These are the stocks our model expects are most likely to beat (or lag) the market in the upcoming quarter: ${picks.quarter}.`;
+
+  renderMetricsList();
+  currentSide = (picks.longs && picks.longs.length) ? 'longs' : 'shorts';
+  document.getElementById('viewSel').value = currentSide;
+
+  renderList();
+  populateTickerDropdown();
+
+  const firstTicker = document.getElementById('tickerSel').value;
+  if (firstTicker){
+    renderContrib(firstTicker);
+    renderPriceVolume(firstTicker);
+    renderFeatureTable(firstTicker);
+    renderHeadlines(firstTicker);
+  }
+
+  // Chatbot welcome
+  botSay("Ask me: <i>Do you recommend KO stock?</i> I’ll check our lists and explain in plain English.");
+}
+
+/* ---------- Chatbot logic ---------- */
+const chatBtn = document.getElementById('chatBtn');
+const chatPanel = document.getElementById('chatPanel');
+const chatClose = document.getElementById('chatClose');
+const chatMsgs = document.getElementById('chatMsgs');
+const chatInput = document.getElementById('chatInput');
+const chatSend = document.getElementById('chatSend');
+
+chatBtn.addEventListener('click', ()=>{ chatPanel.style.display = (chatPanel.style.display==='flex'?'none':'flex'); if(chatPanel.style.display==='flex'){ chatInput.focus(); }});
+chatClose.addEventListener('click', ()=> chatPanel.style.display='none');
+chatSend.addEventListener('click', handleSend);
+chatInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ handleSend(); } });
+
+function addMsg(role, html){
+  const div=document.createElement('div');
+  div.className='msg '+role;
+  div.innerHTML = `<div class="bubble">${html}</div>`;
+  chatMsgs.appendChild(div);
+  chatMsgs.scrollTop = chatMsgs.scrollHeight;
+}
+function userSay(html){ addMsg('user', html); }
+function botSay(html){ addMsg('bot', html); }
+
+function extractTickerFrom(text){
+  const uq = /["'(\[]([A-Za-z][A-Za-z0-9.\-]{0,6})["'\])]/g;
+  let m = uq.exec(text);
+  if (m) return normTicker(m[1]);
+  const words = text.toUpperCase().match(/[A-Z][A-Z0-9.\-]{0,6}/g) || [];
+  const stop = new Set(['DO','YOU','RECOMMEND','STOCK','THE','A','AN','BUY','SELL','LONG','SHORT','OF','FOR','IS','THIS']);
+  const candidates = words.filter(w=>!stop.has(w));
+  return candidates.length ? normTicker(candidates[candidates.length-1]) : '';
+}
+
+/* --- UPDATED: plain-English reasons; no percentages; call out top factor --- */
+function topContribSummary(pick){
+  if(!pick || !Array.isArray(pick.contrib) || !pick.contrib.length) return '';
+
+  const friendly = {
+    dollar_vol_mean: "a lot of money trades in this stock each day",
+    dollar_vol_sum: "heavy total trading activity recently",
+    avg_volume: "strong trading interest from investors",
+    sum_volume: "high share turnover recently",
+    RelativeReturn: "it’s been beating the market recently",
+    ret_vol_q: "price moves haven’t been too jumpy",
+    vol_vol_q: "trading activity has been steady",
+    CapEx: "the company is investing in future growth",
+    PB: "the price looks reasonable versus book value",
+    PE: "the price looks reasonable versus earnings",
+    BookValue: "the asset base supports the valuation",
+    TotalLiabilities: "debt levels look manageable",
+    Turnover: "shares are changing hands actively",
+    NewsCount: "there’s been healthy news coverage",
+    NewsPosMinusNeg: "news tone has leaned positive"
+  };
+  const label = k => friendly[k] || (METRIC_MAP[k]?.label || k);
+
+  const top3 = [...pick.contrib].sort((a,b)=>b.percent-a.percent).slice(0,3);
+
+  const main = top3[0] ? `Most important factor: ${label(top3[0].metric)}. This factor contributes the most to our decision.` : '';
+  const othersArr = top3.slice(1).map(c => label(c.metric));
+  const others = othersArr.length ? `Other factors: ${othersArr.join(', ')}.` : '';
+
+  return [main, others].filter(Boolean).join(' ');
+}
+
+/* --- UPDATED: show nothing if no headlines --- */
+function headlinesSummary(tickerNorm){
+  const rows = sentimentRows.filter(r=>{
+    const t = r.ticker;
+    return t===tickerNorm || t.replace(/\./g,'-')===tickerNorm || t===tickerNorm.replace(/\./g,'-');
+  });
+  if(!rows.length) return ''; // say nothing if no headlines
+
+  const counts = {positive:0, negative:0, neutral:0};
+  rows.forEach(r=>{ const s=(r.sentiment||'neutral').toLowerCase(); if(counts[s]!==undefined) counts[s]++; });
+
+  rows.sort((a,b)=> b.date - a.date);
+  const latest = rows.slice(0,2).map(r=>{
+    const d = r.date.toISOString().slice(0,10);
+    const t = r.title || r.url || '(untitled)';
+    const u = r.url || '#';
+    return `<a href="${u}" target="_blank" rel="noopener">${t}</a> <span class="muted">(${d})</span>`;
+  }).join('<br/>');
+
+  return `Recent headlines: ${counts.negative} negative, ${counts.positive} positive, ${counts.neutral} neutral.<br/>${latest}`;
+}
+
+/* --- UPDATED: responses use new summaries and omit empty headlines --- */
+function handleSend(){
+  const text = (chatInput.value||'').trim();
+  if(!text) return;
+  userSay(text);
+  chatInput.value='';
+
+  if(/recommend/i.test(text)){
+    const t = extractTickerFrom(text);
+    if(!t){ botSay("Tell me a ticker, e.g., <i>Do you recommend KO stock?</i>"); return; }
+
+    const longs = (picks?.longs)||[];
+    const shorts = (picks?.shorts)||[];
+    const longPick = longs.find(x => normTicker(x.ticker)===t);
+    const shortPick = shorts.find(x => normTicker(x.ticker)===t);
+
+    if(longPick){
+      const why  = topContribSummary(longPick);
+      const news = headlinesSummary(t);
+      const parts = [
+        `<b>Yes — ${longPick.ticker} is on our Buy (Long) list.</b>`,
+        why ? `Why we recommend it: ${why}` : ''
+      ];
+      if (news) parts.push(news);
+      botSay(parts.filter(Boolean).join('<br/>'));
+      return;
+    }
+
+    if(shortPick){
+      const why  = topContribSummary(shortPick);
+      const news = headlinesSummary(t);
+      const parts = [
+        `<b>Caution — ${shortPick.ticker} is on our Avoid/Short list.</b>`,
+        why ? `Why the model is cautious: ${why}` : ''
+      ];
+      if (news) parts.push(news);
+      botSay(parts.filter(Boolean).join('<br/>'));
+      return;
+    }
+
+    const news = headlinesSummary(t);
+    const parts = [
+      `<b>Neutral — ${t}</b> isn’t on our Buy or Avoid lists.`,
+      `Based on our model, the stock might not perform much better than the S&P 500 next quarter.`
+    ];
+    if (news) parts.push(news);
+    botSay(parts.filter(Boolean).join('<br/>'));
+    return;
+  }
+
+  botSay("Ask me about a ticker, e.g., <i>Do you recommend UBER stock?</i>");
+}
+
+loadAll().catch(err=>{
+  document.body.innerHTML = "<p style='color:#b91c1c'>Could not load data. Make sure <code>web_dist/picks_latest.json</code>, <code>web_dist/meta.json</code>, <code>web_dist/predictions_latest.csv</code> exist. Also serve from project root so <code>/final_website/data/SP500_2025.csv</code>, <code>/final_website/data/ohlcv_sp500.csv</code> and <code>/sentiment/headlines_with_sentiment_DistilBERT.csv</code> are accessible.</p><pre>"+err+"</pre>";
+});
+</script>
+</body>
+</html>

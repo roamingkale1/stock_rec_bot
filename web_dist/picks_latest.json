@@ -1,0 +1,1220 @@
+{
+  "quarter": "2025-09-30",
+  "generated_at": "2025-09-20T22:00:04.804540Z",
+  "model": {
+    "name": "GradientBoostingClassifier+DistilBERT",
+    "params": {
+      "learning_rate": 0.05,
+      "max_depth": 3,
+      "n_estimators": 200,
+      "random_state": 42
+    }
+  },
+  "top_k": 20,
+  "min_prob": 0.0,
+  "longs": [
+    {
+      "ticker": "TDG",
+      "prob": 0.1832360993087213,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 35.6789114460646
+        },
+        {
+          "metric": "CapEx",
+          "percent": 11.56020477664645
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 11.326870071851333
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 9.359563014596015
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 6.97665369297875
+        },
+        {
+          "metric": "NewsPosMinusNeg",
+          "percent": 6.290017234371531
+        }
+      ]
+    },
+    {
+      "ticker": "AWK",
+      "prob": 0.1783573188479574,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 35.73730756059836
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 11.581092324629251
+        },
+        {
+          "metric": "CapEx",
+          "percent": 11.560047628434214
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 9.768347851029516
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 7.010512421632821
+        },
+        {
+          "metric": "NewsPosMinusNeg",
+          "percent": 6.178110997697408
+        }
+      ]
+    },
+    {
+      "ticker": "IDXX",
+      "prob": 0.1712166373105214,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 34.514719818964004
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 11.33715655504599
+        },
+        {
+          "metric": "CapEx",
+          "percent": 10.463322406665231
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 9.270836897259867
+        },
+        {
+          "metric": "NewsPosMinusNeg",
+          "percent": 7.435445547591843
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 6.84206301642816
+        }
+      ]
+    },
+    {
+      "ticker": "CAH",
+      "prob": 0.17099691677733292,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 35.41230304554515
+        },
+        {
+          "metric": "CapEx",
+          "percent": 11.757827088470513
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 11.73460660134262
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 9.50934638976202
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 7.029395606356097
+        },
+        {
+          "metric": "NewsPosMinusNeg",
+          "percent": 6.161445278586046
+        }
+      ]
+    },
+    {
+      "ticker": "SBAC",
+      "prob": 0.16913667969116528,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 34.33854463578095
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 11.22127307669885
+        },
+        {
+          "metric": "CapEx",
+          "percent": 10.917013862697605
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 9.706248249484123
+        },
+        {
+          "metric": "NewsPosMinusNeg",
+          "percent": 7.208583674529762
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 6.724820476231794
+        }
+      ]
+    },
+    {
+      "ticker": "HII",
+      "prob": 0.16848898724288097,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 38.43105497424138
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 12.824498500327808
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 12.246252892082852
+        },
+        {
+          "metric": "CapEx",
+          "percent": 9.463301007704338
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 7.551237870886453
+        },
+        {
+          "metric": "avg_volume",
+          "percent": 5.627823295518887
+        }
+      ]
+    },
+    {
+      "ticker": "HCA",
+      "prob": 0.16848898724288097,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 38.550649327923495
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 13.216555349878922
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 12.085832829933157
+        },
+        {
+          "metric": "CapEx",
+          "percent": 9.492750039703964
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 7.587451429735535
+        },
+        {
+          "metric": "avg_volume",
+          "percent": 5.3300953799817
+        }
+      ]
+    },
+    {
+      "ticker": "STE",
+      "prob": 0.16585295802099367,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 39.315240551959285
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 13.16441141529731
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 10.788428839677607
+        },
+        {
+          "metric": "CapEx",
+          "percent": 9.911626281382086
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 7.72496965170356
+        },
+        {
+          "metric": "avg_volume",
+          "percent": 5.2781406191364
+        }
+      ]
+    },
+    {
+      "ticker": "RSG",
+      "prob": 0.1650240909301807,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 36.19561957780238
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 11.858952436696237
+        },
+        {
+          "metric": "CapEx",
+          "percent": 11.653574191638928
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 8.122471498856912
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 7.164072842119578
+        },
+        {
+          "metric": "NewsPosMinusNeg",
+          "percent": 6.10090910346603
+        }
+      ]
+    },
+    {
+      "ticker": "CHRW",
+      "prob": 0.1630129317102194,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 35.07144911177319
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 11.536489098312753
+        },
+        {
+          "metric": "CapEx",
+          "percent": 10.8105446377408
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 8.020868765877308
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 6.930870952060647
+        },
+        {
+          "metric": "NewsPosMinusNeg",
+          "percent": 6.852038339031649
+        }
+      ]
+    },
+    {
+      "ticker": "HAS",
+      "prob": 0.16192305879521582,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 38.49060067852934
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 12.715547713986538
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 11.54730047963218
+        },
+        {
+          "metric": "CapEx",
+          "percent": 9.632558014735142
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 7.528262823321883
+        },
+        {
+          "metric": "avg_volume",
+          "percent": 5.321006259555314
+        }
+      ]
+    },
+    {
+      "ticker": "ES",
+      "prob": 0.16187204285571855,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 39.470869241648984
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 13.226125361121492
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 10.743608208385819
+        },
+        {
+          "metric": "CapEx",
+          "percent": 9.881273787709494
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 7.731622294526885
+        },
+        {
+          "metric": "avg_volume",
+          "percent": 5.290108709554976
+        }
+      ]
+    },
+    {
+      "ticker": "KLAC",
+      "prob": 0.16164636347026667,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 38.13692065867988
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 12.08226564900889
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 11.194589331963899
+        },
+        {
+          "metric": "CapEx",
+          "percent": 9.899321064227328
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 7.489481965537436
+        },
+        {
+          "metric": "avg_volume",
+          "percent": 5.319703762174806
+        }
+      ]
+    },
+    {
+      "ticker": "UBER",
+      "prob": 0.1614898429973336,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 38.539201396855596
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 12.96939643520185
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 11.42722975187887
+        },
+        {
+          "metric": "CapEx",
+          "percent": 9.69900867399203
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 7.550477553133948
+        },
+        {
+          "metric": "avg_volume",
+          "percent": 5.173191176939189
+        }
+      ]
+    },
+    {
+      "ticker": "MPC",
+      "prob": 0.1614898429973336,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 38.685380526400685
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 12.896526990030186
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 10.885147327298279
+        },
+        {
+          "metric": "CapEx",
+          "percent": 9.826938547054654
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 7.635376102788362
+        },
+        {
+          "metric": "avg_volume",
+          "percent": 5.242999893649319
+        }
+      ]
+    },
+    {
+      "ticker": "KO",
+      "prob": 0.1614389372559017,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 39.24602594973955
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 13.441897217673962
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 11.091874481010878
+        },
+        {
+          "metric": "CapEx",
+          "percent": 9.813466891000907
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 7.7359674138593295
+        },
+        {
+          "metric": "avg_volume",
+          "percent": 5.260161864263548
+        }
+      ]
+    },
+    {
+      "ticker": "VRSN",
+      "prob": 0.16136524096840735,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 33.93961204709706
+        },
+        {
+          "metric": "CapEx",
+          "percent": 11.130483136670334
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 11.097847517433589
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 10.209086482819188
+        },
+        {
+          "metric": "NewsPosMinusNeg",
+          "percent": 7.058200554755924
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 6.750989889544668
+        }
+      ]
+    },
+    {
+      "ticker": "MOS",
+      "prob": 0.16120713618800364,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 38.9632071153605
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 12.866416167454773
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 10.609293254986863
+        },
+        {
+          "metric": "CapEx",
+          "percent": 10.034220435844432
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 7.620698519459077
+        },
+        {
+          "metric": "avg_volume",
+          "percent": 5.230106280585323
+        }
+      ]
+    },
+    {
+      "ticker": "PNW",
+      "prob": 0.16077522478328915,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 39.385293193884465
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 13.373938995081492
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 10.753427887693476
+        },
+        {
+          "metric": "CapEx",
+          "percent": 9.899897428534864
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 7.762550626536104
+        },
+        {
+          "metric": "avg_volume",
+          "percent": 5.27823743181331
+        }
+      ]
+    },
+    {
+      "ticker": "TYL",
+      "prob": 0.16037975176650993,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 36.92477737721936
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 11.947878034077428
+        },
+        {
+          "metric": "CapEx",
+          "percent": 11.390368916024658
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 7.329036351837523
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 6.656414977998317
+        },
+        {
+          "metric": "NewsPosMinusNeg",
+          "percent": 5.957751357931331
+        }
+      ]
+    }
+  ],
+  "shorts": [
+    {
+      "ticker": "WMT",
+      "prob": 0.07452151403821686,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 37.52612958717004
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 14.026591699063157
+        },
+        {
+          "metric": "CapEx",
+          "percent": 10.122079681010602
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 8.284235217812421
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 7.233357748113939
+        },
+        {
+          "metric": "avg_volume",
+          "percent": 5.085883006394539
+        }
+      ]
+    },
+    {
+      "ticker": "VLTO",
+      "prob": 0.08154947577656636,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 38.00078814173282
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 14.49666720795206
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 7.2190087011265405
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 6.956647776850689
+        },
+        {
+          "metric": "CapEx",
+          "percent": 5.812403646048048
+        },
+        {
+          "metric": "NewsCount",
+          "percent": 5.362626072918434
+        }
+      ]
+    },
+    {
+      "ticker": "HUBB",
+      "prob": 0.08790224532059929,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 40.59155599536714
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 15.598960169578332
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 7.7045711894257085
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 7.119075306718633
+        },
+        {
+          "metric": "avg_volume",
+          "percent": 5.634487275307947
+        },
+        {
+          "metric": "sum_volume",
+          "percent": 4.330224868198849
+        }
+      ]
+    },
+    {
+      "ticker": "GLW",
+      "prob": 0.08879489886030935,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 39.8956206027327
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 15.540140007590125
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 8.057255194673301
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 7.702245055281648
+        },
+        {
+          "metric": "avg_volume",
+          "percent": 5.402026829556088
+        },
+        {
+          "metric": "sum_volume",
+          "percent": 4.0986568948413025
+        }
+      ]
+    },
+    {
+      "ticker": "TRMB",
+      "prob": 0.08973308336110537,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 40.227810684547876
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 15.476368545318392
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 7.663671632188983
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 5.975628059534238
+        },
+        {
+          "metric": "avg_volume",
+          "percent": 5.629696482741624
+        },
+        {
+          "metric": "sum_volume",
+          "percent": 4.281498841493574
+        }
+      ]
+    },
+    {
+      "ticker": "DELL",
+      "prob": 0.09081677898760822,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 40.906558705714666
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 15.295284030235676
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 8.994423641602438
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 7.375966072282145
+        },
+        {
+          "metric": "avg_volume",
+          "percent": 5.20958849404697
+        },
+        {
+          "metric": "CapEx",
+          "percent": 4.942249201099535
+        }
+      ]
+    },
+    {
+      "ticker": "GPN",
+      "prob": 0.09137219819553355,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 41.10570020701085
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 14.407259980718054
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 8.457130050697685
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 7.929243972457694
+        },
+        {
+          "metric": "avg_volume",
+          "percent": 5.510756812046714
+        },
+        {
+          "metric": "CapEx",
+          "percent": 4.703193478515936
+        }
+      ]
+    },
+    {
+      "ticker": "FRT",
+      "prob": 0.09155106329410818,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 42.55306072850554
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 16.01964616826383
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 8.088774901150247
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 6.625569333556081
+        },
+        {
+          "metric": "avg_volume",
+          "percent": 5.8966423009972235
+        },
+        {
+          "metric": "sum_volume",
+          "percent": 4.605175980203857
+        }
+      ]
+    },
+    {
+      "ticker": "APO",
+      "prob": 0.09191844332898463,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 42.29754610482375
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 15.755830590086624
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 8.774416892630141
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 8.20272112350107
+        },
+        {
+          "metric": "avg_volume",
+          "percent": 5.453627624240541
+        },
+        {
+          "metric": "sum_volume",
+          "percent": 4.479889384434202
+        }
+      ]
+    },
+    {
+      "ticker": "PRU",
+      "prob": 0.09260439332377245,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 42.91550837229421
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 16.5206688084573
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 8.225008780529743
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 6.088791397569196
+        },
+        {
+          "metric": "avg_volume",
+          "percent": 5.995475640948181
+        },
+        {
+          "metric": "sum_volume",
+          "percent": 4.644562262240804
+        }
+      ]
+    },
+    {
+      "ticker": "FDX",
+      "prob": 0.09260439332377245,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 42.40244718952911
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 16.109339288416656
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 8.161215987783516
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 6.634894645657035
+        },
+        {
+          "metric": "avg_volume",
+          "percent": 5.811524154095863
+        },
+        {
+          "metric": "sum_volume",
+          "percent": 4.52229755488927
+        }
+      ]
+    },
+    {
+      "ticker": "DAY",
+      "prob": 0.09266363724196415,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 42.18828318589368
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 15.878918278461276
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 9.155058168230337
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 8.142081653711628
+        },
+        {
+          "metric": "avg_volume",
+          "percent": 5.438750744541725
+        },
+        {
+          "metric": "sum_volume",
+          "percent": 4.744410302042551
+        }
+      ]
+    },
+    {
+      "ticker": "MET",
+      "prob": 0.0928264705933566,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 42.85984746724444
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 16.910942768528837
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 8.218490874749033
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 7.069945120993457
+        },
+        {
+          "metric": "avg_volume",
+          "percent": 5.769394840260465
+        },
+        {
+          "metric": "sum_volume",
+          "percent": 4.981984973469398
+        }
+      ]
+    },
+    {
+      "ticker": "SW",
+      "prob": 0.0929294562411625,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 42.58399267798985
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 16.302132521521276
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 8.217526426770212
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 7.900744895467325
+        },
+        {
+          "metric": "avg_volume",
+          "percent": 5.48841561308641
+        },
+        {
+          "metric": "sum_volume",
+          "percent": 4.516167595776909
+        }
+      ]
+    },
+    {
+      "ticker": "EQIX",
+      "prob": 0.09293526098393848,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 42.69765217193003
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 16.798097164167324
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 8.261246293429204
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 7.431068231340659
+        },
+        {
+          "metric": "avg_volume",
+          "percent": 5.5038627743140465
+        },
+        {
+          "metric": "sum_volume",
+          "percent": 4.518672800847106
+        }
+      ]
+    },
+    {
+      "ticker": "HRL",
+      "prob": 0.09335233756900949,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 42.133977067571124
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 15.880707775260488
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 8.038176301828566
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 7.744026409687624
+        },
+        {
+          "metric": "avg_volume",
+          "percent": 5.886087797856088
+        },
+        {
+          "metric": "sum_volume",
+          "percent": 4.445520875173612
+        }
+      ]
+    },
+    {
+      "ticker": "WDAY",
+      "prob": 0.09361012333318386,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 42.665884921886935
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 16.886001828652223
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 8.217214978658692
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 7.456929029601491
+        },
+        {
+          "metric": "avg_volume",
+          "percent": 5.548164028108739
+        },
+        {
+          "metric": "sum_volume",
+          "percent": 4.511446991800239
+        }
+      ]
+    },
+    {
+      "ticker": "MSI",
+      "prob": 0.09371513739322099,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 43.26652149105014
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 16.90290998506502
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 8.259496318653238
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 6.06936731629277
+        },
+        {
+          "metric": "avg_volume",
+          "percent": 5.823934845581751
+        },
+        {
+          "metric": "sum_volume",
+          "percent": 4.757936789881909
+        }
+      ]
+    },
+    {
+      "ticker": "SRE",
+      "prob": 0.0937711888520557,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 42.345262218621635
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 16.50359248355493
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 8.138441237348633
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 6.991303762368699
+        },
+        {
+          "metric": "avg_volume",
+          "percent": 5.813735804463165
+        },
+        {
+          "metric": "sum_volume",
+          "percent": 4.664845167732662
+        }
+      ]
+    },
+    {
+      "ticker": "AVGO",
+      "prob": 0.09416419345052122,
+      "contrib": [
+        {
+          "metric": "dollar_vol_mean",
+          "percent": 41.896964820150515
+        },
+        {
+          "metric": "ret_vol_q",
+          "percent": 15.503430742200978
+        },
+        {
+          "metric": "RelativeReturn",
+          "percent": 9.530564015483982
+        },
+        {
+          "metric": "dollar_vol_sum",
+          "percent": 8.109386995949817
+        },
+        {
+          "metric": "avg_volume",
+          "percent": 5.293870253934323
+        },
+        {
+          "metric": "sum_volume",
+          "percent": 4.4819045996664855
+        }
+      ]
+    }
+  ],
+  "notes": "Contributions are SHAP-based percent impact aggregated by metric family; sentiment via DistilBERT."
+}
